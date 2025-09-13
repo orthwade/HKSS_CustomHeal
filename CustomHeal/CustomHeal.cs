@@ -11,7 +11,7 @@ namespace CustomHeal
     }
     
 
-    [BepInPlugin("com.orthwade.CustomHeal", "Tools Melee Recharge", "1.0.0")]
+    [BepInPlugin("com.orthwade.CustomHeal", "Custom Heal", "1.0.0")]
     public class CustomHeal : BaseUnityPlugin
     {
         internal static CustomHeal Instance;
@@ -21,14 +21,11 @@ namespace CustomHeal
 
             PluginLog.Log = Logger;
 
-            // ToolLibrary.Init(Config);
 
-            // Initialize config manager
             CustomHealConfig.Init(Config);
 
-            Logger.LogInfo("Tools Melee Recharge loaded!");
+            Logger.LogInfo("Custom Heal loaded!");
 
-            // Apply Harmony patches
             var harmony = new Harmony("com.orthwade.CustomHeal");
             harmony.PatchAll();
         }

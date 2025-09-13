@@ -24,7 +24,7 @@ namespace CustomHeal
             HealCost = config.Bind(
                 "General",
                 "HealCost",
-                1,
+                3,
                 new ConfigDescription(
                     "Amount of silk consumed per heal",
                     new AcceptableValueRange<int>(1, 999)

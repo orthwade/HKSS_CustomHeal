@@ -38,6 +38,12 @@
     <Reference Include="0Harmony">
       <HintPath>libs\0Harmony.dll</HintPath>
     </Reference>
+    <Reference Include="PlayMaker">
+      <HintPath>libs\PlayMaker.dll</HintPath>
+    </Reference>
+    <Reference Include="TeamCherry.SharedUtils">
+      <HintPath>libs\TeamCherry.SharedUtils.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="CopyToSteam" AfterTargets="Build">

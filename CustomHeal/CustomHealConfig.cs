@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Management.Instrumentation;
 using BepInEx.Configuration;
 
 namespace CustomHeal
@@ -9,6 +7,9 @@ namespace CustomHeal
     {
         private static ConfigEntry<int> HealAmount;
         private static ConfigEntry<int> HealCost;
+
+        // Cached value for in-game use (applies only on restart)
+        private static int CachedHealCost;
 
         public static void Init(ConfigFile config)
         {
@@ -21,18 +22,33 @@ namespace CustomHeal
                     new AcceptableValueRange<int>(1, 999)
                 )
             );
+
             HealCost = config.Bind(
                 "General",
                 "HealCost",
                 3,
                 new ConfigDescription(
-                    "Amount of silk consumed per heal",
-                    new AcceptableValueRange<int>(1, 999)
+                    "Amount of silk consumed per heal (requires game restart)",
+                    new AcceptableValueRange<int>(1, 25)
                 )
             );
+
+            // Cache startup value
+            CachedHealCost = HealCost.Value;
+
+            // Optional: log a warning when user changes the value
+            HealCost.SettingChanged += (s, e) =>
+            {
+                BepInEx.Logging.Logger.CreateLogSource("CustomHeal").LogInfo(
+                    $"HealCost changed in ConfigManager. New value will apply after restart (currently using {CachedHealCost})."
+                );
+            };
         }
 
+        // Return current value in-game (restart-only)
+        public static int GetHealCost() => CachedHealCost;
+
+        // Return value that updates immediately
         public static int GetHealAmount() => HealAmount.Value;
-        public static int GetHealCost() => HealCost.Value;
     }
 }

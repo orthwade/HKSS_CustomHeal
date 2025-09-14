@@ -9,7 +9,7 @@ namespace CustomHeal.Patches
         private static void Postfix(int amount)
         {
             // Example: Do something whenever healing happens
-            UnityEngine.Debug.Log($"[CustomHeal] Player healed for {amount} HP!");
+            CustomHealLogger.LogInfo($"Player healed for {amount} HP!");
 
             // You could add custom logic here, e.g.:
             // - Trigger a visual effect
@@ -24,7 +24,7 @@ namespace CustomHeal.Patches
             if (amount == 3) // Only modify if healing is positive
                 amount = CustomHealConfig.GetHealAmount();
 
-            UnityEngine.Debug.Log($"[CustomHeal] Healing modified to {amount}");
+            CustomHealLogger.LogInfo($"Healing modified to {amount}");
         }
     }
 }

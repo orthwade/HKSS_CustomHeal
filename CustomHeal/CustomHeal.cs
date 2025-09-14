@@ -5,12 +5,6 @@ using UnityEngine;
 
 namespace CustomHeal
 {
-    internal static class PluginLog
-    {
-        internal static ManualLogSource Log;
-    }
-    
-
     [BepInPlugin("com.orthwade.CustomHeal", "Custom Heal", "1.0.0")]
     public class CustomHeal : BaseUnityPlugin
     {
@@ -19,12 +13,11 @@ namespace CustomHeal
         {
             Instance = this;
 
-            PluginLog.Log = Logger;
-
+            CustomHealLogger.Init();
 
             CustomHealConfig.Init(Config);
 
-            Logger.LogInfo("Custom Heal loaded!");
+            CustomHealLogger.LogInfo("Custom Heal loaded!");
 
             var harmony = new Harmony("com.orthwade.CustomHeal");
             harmony.PatchAll();

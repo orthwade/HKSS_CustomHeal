@@ -5,6 +5,24 @@ namespace CustomHeal
 {
     internal static class CustomHealConfig
     {
+        private static ConfigEntry<bool> LoggingEnabled;
+        private static void LoggingInit(ConfigFile config)
+        {
+            LoggingEnabled = config.Bind(
+                "General",              // Section
+                "LoggingEnabled",       // Key
+                false,                   // Default value
+                "Enable or disable plugin logs" // Description
+            );
+
+            CustomHealLogger.enableLogging = LoggingEnabled.Value;
+
+            LoggingEnabled.SettingChanged += (sender, args) =>
+            {
+                CustomHealLogger.enableLogging = LoggingEnabled.Value;
+            };
+        }
+
         private static ConfigEntry<int> HealAmount;
         private static ConfigEntry<int> HealCost;
 
@@ -13,6 +31,8 @@ namespace CustomHeal
 
         public static void Init(ConfigFile config)
         {
+            LoggingInit(config);
+
             HealAmount = config.Bind(
                 "General",
                 "HealAmount",
@@ -39,9 +59,8 @@ namespace CustomHeal
             // Optional: log a warning when user changes the value
             HealCost.SettingChanged += (s, e) =>
             {
-                BepInEx.Logging.Logger.CreateLogSource("CustomHeal").LogInfo(
-                    $"HealCost changed in ConfigManager. New value will apply after restart (currently using {CachedHealCost})."
-                );
+                CustomHealLogger.LogInfo($"HealCost changed in ConfigManager. " +
+                "New value will apply after restart (currently using {CachedHealCost}).");
             };
         }
 

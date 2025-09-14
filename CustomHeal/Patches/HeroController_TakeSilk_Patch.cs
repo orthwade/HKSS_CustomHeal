@@ -9,18 +9,15 @@
 //     {
 //         private static void Prefix(ref int amount, SilkSpool.SilkTakeSource source)
 //         {
-//             UnityEngine.Debug.Log($"[CustomHeal] Take silk Vanilla amount = {amount}, source = {source}");
 
 //             if (source == SilkSpool.SilkTakeSource.Normal && amount == 9)
 //             {
 //                 amount = CustomHealConfig.GetHealCost();
-//                 UnityEngine.Debug.Log($"[CustomHeal] Heal cost set to {amount}, source = {source}");
 //             }
 //         }
 
 //         private static void Postfix(int amount, SilkSpool.SilkTakeSource source)
 //         {
-//             UnityEngine.Debug.Log($"[CustomHeal] Silk spent: {amount}, source = {source}");
 //         }
 //     }
 // }

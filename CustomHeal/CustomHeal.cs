@@ -13,11 +13,11 @@ namespace CustomHeal
         {
             Instance = this;
 
-            CustomHealLogger.Init();
+            PluginLogger.Init(Config);
 
             CustomHealConfig.Init(Config);
 
-            CustomHealLogger.LogInfo("Custom Heal loaded!");
+            PluginLogger.LogInfo("Custom Heal loaded!");
 
             var harmony = new Harmony("com.orthwade.CustomHeal");
             harmony.PatchAll();

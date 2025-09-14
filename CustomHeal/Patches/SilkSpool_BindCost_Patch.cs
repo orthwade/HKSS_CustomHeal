@@ -12,13 +12,13 @@ namespace CustomHeal.Patches
             if (PlayerData.instance.IsAnyCursed)
             {
                 __result = float.MaxValue;
-                CustomHealLogger.LogInfo("Player is cursed → BindCost set to MaxValue");
+                PluginLogger.LogInfo("Player is cursed → BindCost set to MaxValue");
                 return false; // skip original getter
             }
 
             float cost = CustomHealConfig.GetHealCost();
             __result = cost;
-            CustomHealLogger.LogInfo($"Overriding BindCost → {cost}");
+            PluginLogger.LogInfo($"Overriding BindCost → {cost}");
             return false; // skip original getter
         }
     }

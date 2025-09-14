@@ -21,7 +21,7 @@ namespace CustomHeal.Patches
                     case "BIND_SILK_COST_WITCH":
                         var cost = CustomHealConfig.GetHealCost();
                         __instance.storeValue.SetValue(cost);
-                        CustomHealLogger.LogInfo($"Overridden {variableName} = {cost}");
+                        PluginLogger.LogInfo($"Overridden {variableName} = {cost}");
                         break;
                     default:
                         break;

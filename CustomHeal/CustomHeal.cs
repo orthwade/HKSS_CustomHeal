@@ -21,6 +21,8 @@ namespace CustomHeal
 
             var harmony = new Harmony("com.orthwade.CustomHeal");
             harmony.PatchAll();
+
+            // FSMScanner.Scan();
         }
     }
 }

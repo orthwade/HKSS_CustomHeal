@@ -1,3 +1,4 @@
+using GenericVariableExtension;
 using HarmonyLib;
 
 namespace CustomHeal.Patches
@@ -10,6 +11,7 @@ namespace CustomHeal.Patches
         {
             // Example: Do something whenever healing happens
             PluginLogger.LogInfo($"Player healed for {amount} HP!");
+
 
             // You could add custom logic here, e.g.:
             // - Trigger a visual effect

@@ -12,7 +12,7 @@ namespace CustomHeal.Events
         // Ensure we only schedule one deferred update per frame
         private static bool updateScheduled = false;
       
-        public static void AfterHealCostChanged()
+        public static void RefreshHealCost()
         {
             try
             {
@@ -51,12 +51,19 @@ namespace CustomHeal.Events
 
             try
             {
+                owd.FsmCache.SpellControl.GetActionBindSilkCost().storeValue.SetValue(CustomHealConfig.GetHealCost());
+
+                owd.FsmCache.SpellControl.GetActionBindSilkCostWitch().storeValue.SetValue(CustomHealConfig.GetHealCost());
+                PluginLogger.LogInfo($"[DeferredUpdate] Updated HealCost to {CustomHealConfig.GetHealCost()} in spellControl FSM");
+
                 SilkSpool silkSpool = SilkSpool.Instance;
+
                 if (silkSpool == null)
                 {
-                    PluginLogger.LogWarning("[DeferredUpdate] SilkSpool.Instance is null, cannot update HealCost in FSM");
+                    PluginLogger.LogWarning("[DeferredUpdate] SilkSpool.Instance is null, cannot refresh silk");
                     yield break;
                 }
+                
                 silkSpool.RefreshSilk();
             }
             catch (Exception ex)

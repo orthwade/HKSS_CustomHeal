@@ -44,13 +44,20 @@
     <Reference Include="TeamCherry.SharedUtils">
       <HintPath>libs\TeamCherry.SharedUtils.dll</HintPath>
     </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>libs\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInExConfigManager.Mono.Patcher">
+      <HintPath>libs\BepInExConfigManager.Mono.Patcher.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoMod.RuntimeDetour.HookGen" Version="22.7.31.1" />
   </ItemGroup>
 
   <Target Name="CopyToSteam" AfterTargets="Build">
-  <Copy 
-    SourceFiles="$(TargetDir)$(TargetName).dll" 
-    DestinationFolder="C:\app\Steam\steamapps\common\Hollow Knight Silksong\BepInEx\plugins" 
-    OverwriteReadOnlyFiles="true" />
+  <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFolder="C:\app\Steam\steamapps\common\Hollow Knight Silksong\BepInEx\plugins" OverwriteReadOnlyFiles="true" />
   </Target>
 
   

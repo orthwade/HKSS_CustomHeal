@@ -15,6 +15,7 @@ namespace CustomHeal.Patches
             }
             owd.FsmCache.SpellControl.Store(__instance);
             Events.ConfigHealCostChanged.RefreshHealCost();
+            Events.ConfigHealDurationChanged.RefreshHealDuration();
         }
     }
 }

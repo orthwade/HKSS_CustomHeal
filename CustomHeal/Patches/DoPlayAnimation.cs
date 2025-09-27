@@ -14,6 +14,7 @@ class Patch_DoPlayAnimation
     {
         if (__instance == owd.FsmCache.SpellControl.GetActionTk2dPlayAnimation()) // ✅ check specific action
         {
+            CoroutineRunner.Instance.StopAllCoroutines();
             CoroutineRunner.Instance.Run(FinishAfterDelay(CustomHealConfig.GetHealDurationMs() / 1000f));
             PluginLogger.LogInfo($"[DoPlayAnimation Prefix] Scheduled FinishAfterDelay for {CustomHealConfig.GetHealDurationMs()} ms");
         }
@@ -38,20 +39,6 @@ class Patch_DoPlayAnimation
     }
 }
 
-    [HarmonyPatch(typeof(HutongGames.PlayMaker.FsmStateAction), nameof(HutongGames.PlayMaker.FsmStateAction.Finish))]
-    class Patch_Finish
-    {
-        static bool Prefix(HutongGames.PlayMaker.FsmStateAction __instance)
-        {
-            if (__instance is HutongGames.PlayMaker.Actions.Tk2dPlayAnimation tk2dAnim &&
-                __instance == owd.FsmCache.SpellControl.GetActionTk2dPlayAnimation())
-            {
-                CoroutineRunner.Instance.StopAllCoroutines();
-                PluginLogger.LogInfo("[Finish Prefix] Stopped all coroutines to prevent multiple finishes");
-            }
-            return true;
-        }
-    }
  
 }
 

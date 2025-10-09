@@ -50,16 +50,47 @@
     <Reference Include="BepInExConfigManager.Mono.Patcher">
       <HintPath>libs\BepInExConfigManager.Mono.Patcher.dll</HintPath>
     </Reference>
+    <!-- ImageConversionModule intentionally omitted to avoid netstandard 2.1 vs 2.0 conflict (CS1705). -->
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MonoMod.RuntimeDetour.HookGen" Version="22.7.31.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
+  <PropertyGroup>
+    <!-- Read from environment variable SILKSONG_PATH if available -->
+    <SilksongPath>$(SILKSONG_PATH)</SilksongPath>
+  </PropertyGroup>
 
-  <Target Name="CopyToSteam" AfterTargets="Build">
-  <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFolder="C:\app\Steam\steamapps\common\Hollow Knight Silksong\BepInEx\plugins" OverwriteReadOnlyFiles="true" />
+  <Target Name="CopyToSteam" AfterTargets="Build" Condition="'$(SilksongPath)' != ''">
+    <!-- Kill the game if running -->
+    <Exec Command="powershell -Command &quot;if (Get-Process -Name 'Hollow Knight Silksong' -ErrorAction SilentlyContinue) { Stop-Process -Name 'Hollow Knight Silksong' -Force -PassThru | Wait-Process }&quot;" />
+
+    <!-- Copy plugin DLL -->
+    <Copy 
+      SourceFiles="$(TargetDir)$(TargetName).dll"
+      DestinationFolder="$(SilksongPath)\BepInEx\plugins\$(TargetName)"
+      OverwriteReadOnlyFiles="true" />
+
+    <!-- Copy quests.json if it exists -->
+    <ItemGroup>
+      <QuestJson Include="quests.json" />
+    </ItemGroup>
+
+    <!-- Collect all files under rsc\textures -->
+    <ItemGroup>
+      <TextureFiles Include="rsc\textures\**\*.*" />
+    </ItemGroup>
+
+    <!-- Copy textures -->
+    <Copy 
+      SourceFiles="@(TextureFiles)" 
+      DestinationFiles="@(TextureFiles->'$(SilksongPath)\BepInEx\plugins\$(TargetName)\rsc\textures\%(RecursiveDir)%(Filename)%(Extension)')" 
+      SkipUnchangedFiles="true" 
+      OverwriteReadOnlyFiles="true" />
+
+    <!-- Launch Steam game -->
+    <Exec Command="start steam://rungameid/1030300" />
   </Target>
-
-  
 
 </Project>

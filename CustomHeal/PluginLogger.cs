@@ -1,9 +1,7 @@
 using BepInEx.Logging;
-using UnityEngine;
-using BepInEx;
 using BepInEx.Configuration;
 
-namespace CustomHeal
+namespace owd.CustomHeal
 {
     /// <summary>
     /// Centralized logger for the Tools Melee Recharge plugin.
@@ -52,7 +50,7 @@ namespace CustomHeal
                  new ConfigDescription(
                     "Enable or disable logging to BepInEx log file",
                     null,
-                    new ConfigurationManagerAttributes { Order = 1 }
+                    new ConfigurationManagerAttributes { Order = -1 }
                 )
             );
 

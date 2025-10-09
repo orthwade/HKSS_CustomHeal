@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace CustomHeal.Patches
+namespace owd.CustomHeal.Patches
 {
     [HarmonyPatch(typeof(HeroController))]
     [HarmonyPatch("Start")]
@@ -13,7 +13,7 @@ namespace CustomHeal.Patches
                 PluginLogger.LogWarning("HeroController instance is null in Start postfix");
                 return;
             }
-            owd.FsmCache.SpellControl.Store(__instance);
+            FsmCache.SpellControl.Store(__instance);
             Events.ConfigHealCostChanged.RefreshHealCost();
             Events.ConfigHealDurationChanged.RefreshHealDuration();
         }

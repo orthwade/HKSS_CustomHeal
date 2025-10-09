@@ -1,10 +1,9 @@
 using HutongGames.PlayMaker;
 using UnityEngine;
-using CustomHeal;
 using System.Linq;
 using HutongGames.PlayMaker.Actions;
 
-namespace owd
+namespace owd.CustomHeal
 {
     namespace FsmCache
     {

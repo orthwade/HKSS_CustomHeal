@@ -1,7 +1,6 @@
 using HarmonyLib;
-using UnityEngine;
 
-namespace CustomHeal.Patches
+namespace owd.CustomHeal.Patches
 {
     [HarmonyPatch(typeof(SilkSpool), "BindCost", MethodType.Getter)]
     internal static class SilkSpool_BindCost_Patch
@@ -16,7 +15,7 @@ namespace CustomHeal.Patches
                 return false; // skip original getter
             }
 
-            float cost = CustomHealConfig.GetHealCost();
+            float cost = Conf.GetHealCost();
             __result = cost;
             PluginLogger.LogInfo($"Overriding BindCost → {cost}");
             return false; // skip original getter

@@ -1,11 +1,8 @@
-using BepInEx.Logging;
 using System.Collections;
-using System.Collections.Generic;
-using HarmonyLib;
 using System;
 using UnityEngine;
 
-namespace CustomHeal.Events
+namespace owd.CustomHeal.Events
 {
     internal static class ConfigHealCostChanged
     {
@@ -51,10 +48,10 @@ namespace CustomHeal.Events
 
             try
             {
-                owd.FsmCache.SpellControl.GetActionBindSilkCost().storeValue.SetValue(CustomHealConfig.GetHealCost());
+                FsmCache.SpellControl.GetActionBindSilkCost().storeValue.SetValue(Conf.GetHealCost());
 
-                owd.FsmCache.SpellControl.GetActionBindSilkCostWitch().storeValue.SetValue(CustomHealConfig.GetHealCost());
-                PluginLogger.LogInfo($"[DeferredUpdate] Updated HealCost to {CustomHealConfig.GetHealCost()} in spellControl FSM");
+                FsmCache.SpellControl.GetActionBindSilkCostWitch().storeValue.SetValue(Conf.GetHealCost());
+                PluginLogger.LogInfo($"[DeferredUpdate] Updated HealCost to {Conf.GetHealCost()} in spellControl FSM");
 
                 SilkSpool silkSpool = SilkSpool.Instance;
 

@@ -1,12 +1,8 @@
-using BepInEx.Logging;
 using System.Collections;
-using System.Collections.Generic;
-using HarmonyLib;
 using System;
 using UnityEngine;
-using GenericVariableExtension;
 
-namespace CustomHeal.Events
+namespace owd.CustomHeal.Events
 {
     internal static class ConfigHealDurationChanged
     {
@@ -15,6 +11,8 @@ namespace CustomHeal.Events
       
         public static void RefreshHealDuration()
         {
+            return; // TEMP DISABLE
+            
             try
             {
                 ScheduleDeferredUpdate();
@@ -53,18 +51,18 @@ namespace CustomHeal.Events
             try
             {
                 // float newDurationSeconds = CustomHealConfig.GetHealDurationMs() / 1000f;
-                owd.FsmCache.SpellControl.GetActionTimeLimitSetV2().TimeDelay.Value = 0.001f;
-                owd.FsmCache.SpellControl.GetActionTimeLimitSetV2().StoreValue.Value = 0.001f;
-                if(owd.FsmCache.SpellControl.GetActionTk2dPlayAnimation() != null && 
-                   owd.FsmCache.SpellControl.GetActionTk2dPlayAnimation().clipName != null &&
-                   owd.FsmCache.SpellControl.GetActionTk2dPlayAnimation().Active &&
-                   !owd.FsmCache.SpellControl.GetActionTk2dPlayAnimation().Finished)
+                FsmCache.SpellControl.GetActionTimeLimitSetV2().TimeDelay.Value = 0.001f;
+                FsmCache.SpellControl.GetActionTimeLimitSetV2().StoreValue.Value = 0.001f;
+                if(FsmCache.SpellControl.GetActionTk2dPlayAnimation() != null && 
+                   FsmCache.SpellControl.GetActionTk2dPlayAnimation().clipName != null &&
+                   FsmCache.SpellControl.GetActionTk2dPlayAnimation().Active &&
+                   !FsmCache.SpellControl.GetActionTk2dPlayAnimation().Finished)
                 {
-                    owd.FsmCache.SpellControl.GetActionTk2dPlayAnimation().Finish();
+                    FsmCache.SpellControl.GetActionTk2dPlayAnimation().Finish();
                 }
 
 
-                PluginLogger.LogInfo($"[DeferredUpdate] Updated HealDuration to {CustomHealConfig.GetHealDurationMs()} ms in spellControl FSM");
+                PluginLogger.LogInfo($"[DeferredUpdate] Updated HealDuration to {Conf.GetHealDurationMs()} ms in spellControl FSM");
 
             }
             catch (Exception ex)

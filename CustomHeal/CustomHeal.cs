@@ -1,9 +1,7 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
 using HarmonyLib;
-using UnityEngine;
 
-namespace CustomHeal
+namespace owd.CustomHeal
 {
     [BepInPlugin("com.orthwade.CustomHeal", "Custom Heal", "1.0.0")]
     public class CustomHeal : BaseUnityPlugin
@@ -15,7 +13,7 @@ namespace CustomHeal
 
             PluginLogger.Init(Config);
 
-            CustomHealConfig.Init(Config);
+            Conf.Init(Config);
 
             PluginLogger.LogInfo("Custom Heal loaded!");
 

@@ -3,7 +3,7 @@ using HarmonyLib;
 
 namespace owd.CustomHeal
 {
-    [BepInPlugin("com.orthwade.CustomHeal", "Custom Heal", "1.0.0")]
+    [BepInPlugin("com.orthwade.CustomHeal", "Custom Heal", "1.1.0")]
     public class CustomHeal : BaseUnityPlugin
     {
         internal static CustomHeal Instance;

@@ -116,11 +116,11 @@ namespace owd.CustomHeal
             );
             SilkRegenMax = config.Bind(
                 "General",
-                "SilkRegenMax",
+                "SilkRegenCap",
                 2,
                 new ConfigDescription(
-                    "Cap max regenerated silk chunks. If SilkRegenMax < SilkHeartsFound, regen stops.",
-                    new AcceptableValueRange<int>(0, 3),
+                    "Cap max regenerated silk chunks.",
+                    new AcceptableValueRange<int>(0, 4),
                     new ConfigurationManagerAttributes { Order = -6 }
                 )
             );
